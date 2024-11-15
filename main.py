@@ -5,7 +5,7 @@ import sys
 
 pygame.init()
 
-level_layout = [[0, 0, 0],[0,0,0],[0,0,0],[0],[0,0,0,0]]
+level_layout = [[2, 2, 2, 2, 2],[2,1,1,1,2],[2,1,2,1,2],[2,1,1,1,2],[2,1,1,1,2], [2, 2, 2, 2, 2]]
 tile_size = 128
 xStart = 0
 yStart = 128
@@ -16,21 +16,28 @@ yoff = pygame.math.Vector2(tile_size/2, tile_size/4)
 
 floor_img = pygame.image.load("floor.png")
 floor_img = transform.scale(floor_img, (tile_size, tile_size))
+obstacle_img = pygame.image.load("obstacle.png")
+obstacle_img = transform.scale(obstacle_img, (tile_size, tile_size))
 
 
 
 
-def draw_tile(x, y):
+def draw_floor(x, y):
     screen.blit(floor_img, (x, y))
+
+def draw_obstacle(x, y):
+    screen.blit(obstacle_img, (x, y))
 
 
 
 def draw_level(level):
     for y in range(len(level)):
         for x in reversed(range(len(level[y]))):
-
             k = x*xoff + y*yoff
-            draw_tile(k[0]+xStart, k[1]+yStart)
+            if level[y][x] == 1:
+                draw_floor(k[0]+xStart, k[1]+yStart)
+            elif level[y][x] == 2:
+                draw_obstacle(k[0]+xStart, k[1]+yStart)
     
 
  
