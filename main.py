@@ -4,11 +4,13 @@ import sys
 
 
 pygame.init()
-
-level_layout = [[2, 2, 2, 2, 2],[2,1,1,1,2],[2,1,2,1,2],[2,1,1,1,2],[2,1,1,1,2], [2, 2, 2, 2, 2]]
+width, height = 950, 800
+level_layout = [[2, 2, 2, 2, 2],[2,1,1,1,2],[2,1,2,1,2],[2,1,1,1,2],[2,1,1,1,2], [2, 2, 2, 2, 2], [2, 2, 2, 2, 2],[2, 2, 2, 2, 2],[2, 2, 2, 2, 2],[2, 2, 2, 2, 2]]
 tile_size = 128
-xStart = 0
-yStart = 128
+xStart = width / len(level_layout) - tile_size*0.75
+if len(level_layout) == 1:
+    xStart = width / 4
+yStart = 400
 xoff = pygame.math.Vector2(tile_size/2, tile_size/-4)
 yoff = pygame.math.Vector2(tile_size/2, tile_size/4)
 
@@ -32,7 +34,8 @@ def draw_obstacle(x, y):
 
 def draw_level(level):
     for y in range(len(level)):
-        for x in reversed(range(len(level[y]))):
+        for x in reversed(range(len(level[y]))): 
+            
             k = x*xoff + y*yoff
             if level[y][x] == 1:
                 draw_floor(k[0]+xStart, k[1]+yStart)
@@ -43,7 +46,7 @@ def draw_level(level):
  
 fps = 60
 fpsClock = pygame.time.Clock()
-width, height = 950, 800
+
 screen = pygame.display.set_mode((width, height))
  
 while True:
